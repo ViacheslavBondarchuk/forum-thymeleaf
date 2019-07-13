@@ -89,6 +89,12 @@
     </tbody>
 </table>
 
+<ul class="nav nav-pills">
+    <li class="nav-item" th:each="i : ${#numbers.sequence(0,discussions.totalPages)}">
+        <a th:text="${i}" th:href="@{/discussion/(page=${i})}" class="nav-link"></a>
+    </li>
+</ul>
+
 
 </body>
 </html>

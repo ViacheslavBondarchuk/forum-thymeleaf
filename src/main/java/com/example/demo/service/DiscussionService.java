@@ -10,6 +10,8 @@ import com.google.common.collect.ImmutableList;
 import javassist.NotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +23,8 @@ public class DiscussionService {
     @Autowired
     private CommentRepository commentRepository;
 
-    public List<Discussion> getAllDiscussion() {
-        return discussionRepository.findAll();
+    public Page<Discussion> getAllDiscussion(int page) {
+        return discussionRepository.findAll(new PageRequest(page, 10));
     }
 
     public void addDiscussion(DiscussionDTO discussionDTO) {

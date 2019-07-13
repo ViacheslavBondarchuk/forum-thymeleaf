@@ -5,14 +5,12 @@ import com.example.demo.dto.DiscussionDTO;
 import com.example.demo.service.DiscussionService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -23,8 +21,9 @@ public class DiscussionController {
     private DiscussionService discussionService;
 
     @GetMapping("/discussion")
-    public String showPage(Model model, DiscussionDTO discussionDTO) {
-        model.addAttribute("discussions", discussionService.getAllDiscussion());
+    public String showPage(Model model, DiscussionDTO discussionDTO
+            ,@RequestParam(defaultValue = "0") int page) {
+        model.addAttribute("discussions", discussionService.getAllDiscussion(page));
         return "discussion";
     }
 
