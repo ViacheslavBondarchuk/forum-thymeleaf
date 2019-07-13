@@ -1,4 +1,4 @@
-package com.example.demo.DTO;
+package com.example.demo.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,11 +8,9 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-public class TopicDTO {
+public class CommentDTO {
     private long id;
     @NotBlank
-    private String theme;
-    @NotBlank
     @Length(max = 300)
-    private String problem;
+    private String text;
 }

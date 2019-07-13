@@ -16,6 +16,6 @@ public class LoginController {
 
     @PostMapping
     public String redirect(){
-        return "redirect:/";
+        return "forward:/";
     }
 }

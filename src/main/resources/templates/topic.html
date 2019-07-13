@@ -51,7 +51,7 @@
     </button>
 </div>
 
-<!--Collapse Form - new discussion-->
+<!--Collapse Form - new comment-->
 <div class="collapse" id="newDiscussion">
     <div class="card card-body">
         <form method="post" class="container">
@@ -63,6 +63,21 @@
         </form>
     </div>
 </div>
+
+<!--Table for comments-->
+<table th:align="left">
+    <thead>
+    </thead>
+    <tbody>
+    <tr th:if="${comments.isEmpty()}">
+        <td colspan="2"> No One Comment</td>
+    </tr>
+    <tr th:each="comment : ${comments}">
+        <td><span th:text="${comment.id}"> Id </span></td>
+        <td><span th:text="${comment.text}"> Comment </span></td>
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>
