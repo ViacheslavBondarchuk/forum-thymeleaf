@@ -41,7 +41,7 @@ public class DiscussionController {
 
     @PostMapping("/topic/{id}")
     public String addComment(@Validated @ModelAttribute CommentDTO commentDTO, @PathVariable String id) throws NotFoundException {
-//        discussionService.saveComment(Long.parseLong(id), commentDTO);
+        discussionService.saveComment(Long.parseLong(id), commentDTO);
         System.out.println("HELLO");
         return "redirect:/topic/" + id;
     }

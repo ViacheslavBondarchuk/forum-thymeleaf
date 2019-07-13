@@ -6,14 +6,19 @@ import com.example.demo.model.Comment;
 import com.example.demo.model.Discussion;
 import com.example.demo.repository.CommentRepository;
 import com.example.demo.repository.DiscussionRepository;
+import com.google.common.collect.ImmutableList;
 import javassist.NotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import static java.util.Collections.singletonList;
 
 @Service
 public class DiscussionService {
@@ -35,14 +40,14 @@ public class DiscussionService {
         return discussionRepository.findById(id).orElseThrow(() -> new NotFoundException("Topic not found"));
     }
 
-    public List<Comment> getAllComents(long id){
+    public List<Comment> getAllComents(long id) {
         return commentRepository.findAllByDiscussion_Id(id);
     }
 
-    @Transactional
     public void saveComment(long id, CommentDTO commentDTO) throws NotFoundException {
         Discussion discussion = discussionRepository.findById(id).orElseThrow(() -> new NotFoundException("Discussion was not found"));
-        discussion.setComment(Collections.singletonList(new ModelMapper().map(commentDTO, Comment.class)));
+        commentDTO.setDiscussion(discussion);
+        discussion.setComment(ImmutableList.of(new ModelMapper().map(commentDTO,Comment.class)));
 
         discussionRepository.save(discussion);
     }
