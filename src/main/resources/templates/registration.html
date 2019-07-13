@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <!-- Required meta tags -->
@@ -53,19 +52,21 @@
 </nav>
 
 <!--Registration form-->
-<form th:action="@{/registration}" method="post">
+<form th:action="@{/registration}" th:object="${userDTO}" method="post">
     <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+        <input type="text" th:field="*{username}" class="form-control" id="username" name="username"
+               placeholder="Username"/>
+        <span th:if="${#fields.hasErrors('username')}" class="help-block" th:errors="*{username}">Username error</span>
     </div>
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-    </div>
+        <input type="password" th:field="*{password}" class="form-control" id="password" name="password" placeholder="Password"></div>
+    <span th:if="${#fields.hasErrors('password')}" class="help-block" th:errors="*{password}">Password error</span>
     <div class="form-group">
         <label for="email">Email address</label>
-        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
-               placeholder="Enter email">
+        <input type="email" th:field="*{email}" class="form-control" id="email" name="email" aria-describedby="emailHelp"placeholder="Enter email">
+        <span th:if="${#fields.hasErrors('email')}" class="help-block" th:errors="*{email}">Email error</span>
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <button type="submit" class="btn btn-primary">Registration</button>

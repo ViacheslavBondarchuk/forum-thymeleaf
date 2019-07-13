@@ -33,7 +33,7 @@
             </li>
         </ul>
 
-        <ul class="navbar-nav mr-0" th:align="right">
+        <ul class="navbar-nav mr-0" th:align="right" sec:authorize="${!isFullyAuthenticated()}">
             <li class="nav-item active">
                 <a class="nav-link" th:href="@{/login}">Sign In <span class="sr-only">(current)</span></a>
             </li>
