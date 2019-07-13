@@ -64,8 +64,11 @@
     </div>
 </div>
 
+<h1 th:text="'Theme: ' + ${topic.theme}" th:align="center"></h1>
+<h3 th:text="'Description: ' + ${topic.description}" th:align="center"></h3>
+
 <!--Table for comments-->
-<table th:align="left">
+<table th:align="center" th>
     <thead>
     </thead>
     <tbody>
