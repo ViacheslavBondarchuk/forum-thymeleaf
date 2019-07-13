@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -43,8 +44,10 @@ public class DiscussionService {
     public void saveComment(long id, CommentDTO commentDTO) throws NotFoundException {
         Discussion discussion = discussionRepository.findById(id).orElseThrow(() -> new NotFoundException("Discussion was not found"));
         commentDTO.setDiscussion(discussion);
-        discussion.setComment(ImmutableList.of(new ModelMapper().map(commentDTO,Comment.class)));
+        commentDTO.setId(0);
 
-        discussionRepository.save(discussion);
+        System.out.println(commentDTO.getId());
+
+        commentRepository.save(new ModelMapper().map(commentDTO, Comment.class));
     }
 }
