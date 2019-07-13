@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.CommentDTO;
 import com.example.demo.dto.DiscussionDTO;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.DiscussionService;
@@ -33,9 +34,16 @@ public class DiscussionController {
 
     @GetMapping("/topic/{id}")
     public String showTopic(@PathVariable String id, Model model) throws NotFoundException {
-        model.addAttribute("topic",discussionService.getTopic(Long.parseLong(id)));
+        model.addAttribute("topic", discussionService.getTopic(Long.parseLong(id)));
         model.addAttribute("comments", discussionService.getAllComents(Long.parseLong(id)));
         return "topic";
+    }
+
+    @PostMapping("/topic/{id}")
+    public String addComment(@Validated @ModelAttribute CommentDTO commentDTO, @PathVariable String id) throws NotFoundException {
+//        discussionService.saveComment(Long.parseLong(id), commentDTO);
+        System.out.println("HELLO");
+        return "redirect:/topic/" + id;
     }
 
 

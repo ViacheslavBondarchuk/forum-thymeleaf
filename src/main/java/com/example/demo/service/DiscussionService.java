@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.CommentDTO;
 import com.example.demo.dto.DiscussionDTO;
 import com.example.demo.model.Comment;
 import com.example.demo.model.Discussion;
@@ -10,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -34,5 +37,13 @@ public class DiscussionService {
 
     public List<Comment> getAllComents(long id){
         return commentRepository.findAllByDiscussion_Id(id);
+    }
+
+    @Transactional
+    public void saveComment(long id, CommentDTO commentDTO) throws NotFoundException {
+        Discussion discussion = discussionRepository.findById(id).orElseThrow(() -> new NotFoundException("Discussion was not found"));
+        discussion.setComment(Collections.singletonList(new ModelMapper().map(commentDTO, Comment.class)));
+
+        discussionRepository.save(discussion);
     }
 }

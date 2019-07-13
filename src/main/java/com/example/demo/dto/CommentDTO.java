@@ -1,8 +1,8 @@
 package com.example.demo.dto;
 
+import com.example.demo.model.Discussion;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 
@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 public class CommentDTO {
     private long id;
     @NotBlank
-    @Length(max = 300)
     private String text;
+
+    private Discussion discussion;
 }

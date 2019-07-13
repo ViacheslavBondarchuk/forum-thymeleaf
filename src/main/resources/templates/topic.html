@@ -54,10 +54,10 @@
 <!--Collapse Form - new comment-->
 <div class="collapse" id="newDiscussion">
     <div class="card card-body">
-        <form method="post" class="container">
+        <form method="post" class="container" th:action="@{'/topic/' + ${topic.id}}">
             <div class="form-group">
-                <label for="textComment">Comment</label>
-                <textarea class="form-control" id="textComment" name="textComment"></textarea>
+                <label for="text">Comment</label>
+                <textarea class="form-control" id="text" name="text"></textarea>
             </div>
             <input type="submit" class="btn btn-success" value="Add"/>
         </form>
