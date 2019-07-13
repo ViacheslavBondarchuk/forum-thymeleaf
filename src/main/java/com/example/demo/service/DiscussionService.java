@@ -46,8 +46,6 @@ public class DiscussionService {
         commentDTO.setDiscussion(discussion);
         commentDTO.setId(0);
 
-        System.out.println(commentDTO.getId());
-
         commentRepository.save(new ModelMapper().map(commentDTO, Comment.class));
     }
 }
