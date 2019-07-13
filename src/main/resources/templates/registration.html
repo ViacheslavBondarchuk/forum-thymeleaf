@@ -52,7 +52,7 @@
 </nav>
 
 <!--Registration form-->
-<form th:action="@{/registration}" th:object="${userDTO}" method="post">
+<form th:action="@{/registration}" th:object="${userDTO}" method="post" class="container">
     <div class="form-group">
         <label for="username">Username</label>
         <input type="text" th:field="*{username}" class="form-control" id="username" name="username"
