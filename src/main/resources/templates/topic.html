@@ -52,12 +52,13 @@
 </div>
 
 <!--Collapse Form - new comment-->
-<div class="collapse" id="newDiscussion">
+<div class="collapse" id="newDiscussion" th:object="${commentDTO}">
     <div class="card card-body">
         <form method="post" class="container" th:action="@{'/topic/' + ${topic.id}}">
             <div class="form-group">
                 <label for="text">Comment</label>
-                <textarea class="form-control" id="text" name="text"></textarea>
+                <textarea class="form-control" th:field="*{text}" id="text" name="text"></textarea>
+                <span th:if="${#fields.hasErrors('text')}" class="help-block" th:errors="*{text}">Text error</span>
             </div>
             <input type="submit" class="btn btn-success" value="Add"/>
         </form>

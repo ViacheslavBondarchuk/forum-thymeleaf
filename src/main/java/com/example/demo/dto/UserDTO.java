@@ -16,13 +16,13 @@ import java.util.Set;
 public class UserDTO {
     private long id;
     @Email
-    @NotBlank(message = "Field is required")
+    @NotBlank
     private String email;
-    @Size(max = 20, message = "Юзернейм одлжен быть не больше 20 символов")
-    @NotBlank(message = "Field is required")
+    @NotBlank
+    @Size(min = 4, max = 20, message = "The number of characters must be from 4 to 20")
     private String username;
-    @Size(min = 4, max = 12, message = "Пароль должен быть от 4 до 12 символов")
-    @NotBlank(message = "Field is required")
+    @NotBlank
+    @Size(min = 4, max = 12, message = "The number of characters must be from 4 to 12")
     private String password;
     private boolean isEnabled;
     private boolean isAccountNonLocked;

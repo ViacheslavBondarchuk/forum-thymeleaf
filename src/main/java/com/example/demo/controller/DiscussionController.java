@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+
 @Controller
 public class DiscussionController {
 
@@ -21,28 +23,37 @@ public class DiscussionController {
     private DiscussionService discussionService;
 
     @GetMapping("/discussion")
-    public String showPage(Model model) {
+    public String showPage(Model model, DiscussionDTO discussionDTO) {
         model.addAttribute("discussions", discussionService.getAllDiscussion());
         return "discussion";
     }
 
     @PostMapping("/discussion")
-    public String addDiscussion(@Validated @ModelAttribute DiscussionDTO discussionDTO) {
+    public String addDiscussion(@Valid @ModelAttribute DiscussionDTO discussionDTO
+            , BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/discussion";
+        }
         discussionService.addDiscussion(discussionDTO);
         return "redirect:/discussion";
     }
 
     @GetMapping("/topic/{id}")
-    public String showTopic(@PathVariable String id, Model model) throws NotFoundException {
+    public String showTopic(@PathVariable String id, CommentDTO commentDTO, Model model) throws NotFoundException {
         model.addAttribute("topic", discussionService.getTopic(Long.parseLong(id)));
         model.addAttribute("comments", discussionService.getAllComents(Long.parseLong(id)));
         return "topic";
     }
 
     @PostMapping("/topic/{id}")
-    public String addComment(@Validated @ModelAttribute CommentDTO commentDTO, @PathVariable String id) throws NotFoundException {
-        discussionService.saveComment(Long.parseLong(id), commentDTO);
-        return "redirect:/topic/" + id;
+    public String addComment(@Valid @ModelAttribute CommentDTO commentDTO, BindingResult result
+            , @PathVariable String id) throws NotFoundException {
+        if (result.hasErrors()) {
+            return "redirect:/topic/" + id;
+        } else {
+            discussionService.saveComment(Long.parseLong(id), commentDTO);
+            return "redirect:/topic/" + id;
+        }
     }
 
 

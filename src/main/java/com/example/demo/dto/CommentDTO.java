@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 public class CommentDTO {
     private long id;
-    @NotBlank
+    @NotBlank(message = "Not be empty")
     private String text;
 
     private Discussion discussion;

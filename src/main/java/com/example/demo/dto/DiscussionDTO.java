@@ -10,9 +10,9 @@ import javax.validation.constraints.NotBlank;
 @Setter
 public class DiscussionDTO {
     private long id;
-    @NotBlank
+    @NotBlank(message = "Cannot be empty")
     private String theme;
-    @NotBlank
-    @Length(max = 100)
+    @NotBlank(message = "Cannot be empty")
+    @Length(min = 10, max = 300, message = "The number of characters must be from 10 to 300")
     private String description;
 }
